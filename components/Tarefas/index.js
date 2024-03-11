@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity  } from 'react-native';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEdit, faWindowClose} from '@fortawesome/free-solid-svg-icons';
@@ -7,17 +7,17 @@ import { faEdit, faWindowClose} from '@fortawesome/free-solid-svg-icons';
 export default function Tarefas({ tarefas, handleEdit, handleDelete}) {
   
     return (
-      <View style={styles.container}>
+      <View>
         <FlatList
           data={tarefas}
           renderItem={({ item, index }) => (
-            <View style={styles.itemContainer}>
-              <Text style={styles.item}>{item}</Text>
-              <View style={styles.buttons}>
-                <TouchableOpacity onPressOut={() => handleEdit(index)} style={styles.edit}>
+            <View>
+              <Text >{item}</Text>
+              <View>
+                <TouchableOpacity onPressOut={() => handleEdit(index)}>
                     {/* <FontAwesomeIcon icon={faEdit} /> */}
                 </TouchableOpacity>
-                <TouchableOpacity onPressOut={() => handleDelete(index)} style={styles.delete}>
+                <TouchableOpacity onPressOut={() => handleDelete(index)}>
                     {/* <FontAwesomeIcon icon={faWindowClose} /> */}
                 </TouchableOpacity>
               </View>
@@ -27,12 +27,3 @@ export default function Tarefas({ tarefas, handleEdit, handleDelete}) {
       </View>
     );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
-    padding: 8,
-  }
-});

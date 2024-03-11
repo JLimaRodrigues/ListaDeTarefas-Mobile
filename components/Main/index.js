@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import Title from '../Title';
 import Form from '../Form';
 import Tarefas from '../Tarefas';
 
@@ -25,7 +28,11 @@ export default class Main extends Component {
 
       if(tarefas === prevState.tarefas) return;
 
-      AsyncStorage.setItem('tarefas', JSON.stringify(tarefas));
+      try{
+        AsyncStorage.setItem('tarefas', JSON.stringify(tarefas));
+      } catch(error){
+        console.error('Erro ao salvar dados: ', error)
+      }
   }
 
   handleSubmit = (e) => {
@@ -82,21 +89,20 @@ export default class Main extends Component {
     const { novaTarefa, tarefas } = this.state;
 
     return (
-      <View>
-        <View>
-            <Form
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
-              novaTarefa={novaTarefa}
-            />
-          </View>
-          <View>
-            <Tarefas 
-              tarefas={tarefas}
-              handleEdit={this.handleEdit}
-              handleDelete={this.handleDelete}
-            />
-          </View>
+      <View style={styles.main}>
+          <Title />
+
+          <Form
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            novaTarefa={novaTarefa}
+          />
+
+          <Tarefas 
+            tarefas={tarefas}
+            handleEdit={this.handleEdit}
+            handleDelete={this.handleDelete}
+          />
       </View>
       )
   }
@@ -104,10 +110,10 @@ export default class Main extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
-    padding: 8,
+  main: {
+    marginTop: 50,
+    padding: 50,
+    borderColor: 'black',
+    borderWidth: 1
   }
-});
+})
