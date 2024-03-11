@@ -1,16 +1,21 @@
-import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-export default function Form() {
+export default function Form({ handleChange, handleSubmit, novaTarefa}) {
   
     return (
           <View style={styles.form}>
-            <TextInput style={styles.input}></TextInput>
-            <TouchableOpacity>
-              <FontAwesomeIcon icon={faPlus} />
+            <TextInput 
+              onChangeText={handleChange}
+              placeholder='Ex. Lavar o Carro'
+              style={styles.input}
+              value={novaTarefa}
+              ></TextInput>
+            <TouchableOpacity onPress={handleSubmit}>
+              <FontAwesomeIcon icon={faPlus} style={styles.button} />
             </TouchableOpacity>
           </View>
         );
@@ -19,16 +24,22 @@ export default function Form() {
 const styles = StyleSheet.create({
   form: {
     marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'row',
-    borderColor: 'red',
-    borderWidth: 1
+    marginVertical: 'auto',
+    justifyContent: 'center',
   },
   input: {
-    height: 36,
-    paddingHorizontal: '40%',
+    height: '100%',
+    width: '50%',
     borderColor: '#ccc',
     borderWidth: 1
+  },
+  button: {
+    padding: 17,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    backgroundColor: '#f04c64'
   }
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -35,8 +35,8 @@ export default class Main extends Component {
       }
   }
 
-  handleSubmit = (e) => {
-
+  handleSubmit = () => {
+    
     const { tarefas, index } = this.state;
 
     let { novaTarefa } = this.state;
@@ -52,15 +52,18 @@ export default class Main extends Component {
                 novaTarefa: ''
             })
     } else {
+      novasTarefas[index] = novaTarefa;
+
       this.setState({
-                tarefas: [...novasTarefas, novaTarefa],
+                tarefas: [...novasTarefas],
+                index: -1,
                 novaTarefa: ''
             })
     }
 
   }
 
-   handleEdit = (e, index) => {
+   handleEdit = (index) => {
         const { tarefas } = this.state;
 
         this.setState({
@@ -69,7 +72,7 @@ export default class Main extends Component {
         })
     }
 
-    handleDelete = (e, index) => {
+    handleDelete = (index) => {
         const { tarefas } = this.state;
         const novasTarefas = [...tarefas];
         novasTarefas.splice(index, 1);
@@ -81,7 +84,7 @@ export default class Main extends Component {
 
   handleChange = (e) => {
     this.setState({
-      novaTarefa: e.target.value
+      novaTarefa: e
     })
   }
 
@@ -111,9 +114,7 @@ export default class Main extends Component {
 
 const styles = StyleSheet.create({
   main: {
-    marginTop: 50,
-    padding: 50,
-    borderColor: 'black',
-    borderWidth: 1
+    padding: 0,
+    margin: 0,
   }
 })
